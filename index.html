@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced CSS3 Portfolio</title>
+    <style>
+        /* ==========================================
+           1. CUSTOM VARIABLES & THEME ENGINE (Light Mode Default)
+           ========================================== */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #222222;
+            --card-bg: #f4f4f7;
+            --primary-color: #2563eb;
+            --accent-color: #e2e8f0;
+            --transition-speed: 0.3s;
+        }
+
+        /* Dark Mode Theme Variables */
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #f3f4f6;
+            --card-bg: #1e1e1e;
+            --accent-color: #374151;
+        }
+
+        /* Core Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+        }
+
+        /* ==========================================
+           2. MOBILE-FIRST DESIGN (Default Styles)
+           ========================================== */
+
+        /* Header & Nav: Flexbox Alignment */
+        .main-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects Layout: Mobile-First (Single Column Stack) */
+        .portfolio-container {
+            padding: 2rem 1.5rem;
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* CSS Grid: Mobile screen-la single column */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr; 
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: transform var(--transition-speed);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            height: 150px;
+            background-color: var(--accent-color);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            margin-top: 3rem;
+            border-top: 1px solid var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================
+           3. RESPONSIVE MEDIA QUERIES (Desktop/Tablet)
+           ========================================== */
+
+        /* Tablet display */
+        @media (min-width: 768px) {
+            .main-header {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 1rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            /* CSS Grid: 2 columns for tablets */
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Large Screen Desktop display */
+        @media (min-width: 1024px) {
+            /* CSS Grid: Two-dimensional 4 columns on large display */
+            .projects-grid {
+                grid-template-columns: repeat(4, 1fr); 
+            }
+        }
+
+        /* ==========================================
+           4. DARK MODE TOGGLE BUTTON STYLES
+           ========================================== */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+        }
+
+        .theme-switch input {
+            display: none;
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">MyPortfolio</div>
+        <nav class="nav-links">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+            </label>
+            <span id="theme-text">Dark Mode</span>
+        </div>
+    </header>
+
+    <section class="hero" id="about">
+        <h1>Creative Developer</h1>
+        <p>Building flawless, pixel-perfect, and highly responsive web architectures.</p>
+    </section>
+
+    <main class="portfolio-container" id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <article class="project-card">
+                <div class="card-image"></div>
+                <h3>Project One</h3>
+                <p>Advanced UI mechanics and semantic layout engineering.</p>
+            </article>
+            <article class="project-card">
+                <div class="card-image"></div>
+                <h3>Project Two</h3>
+                <p>E-commerce grid architecture optimized for touch devices.</p>
+            </article>
+            <article class="project-card">
+                <div class="card-image"></div>
+                <h3>Project Three</h3>
+                <p>Clean data dashboards built with CSS custom properties.</p>
+            </article>
+            <article class="project-card">
+                <div class="card-image"></div>
+                <h3>Project Four</h3>
+                <p>Performance optimization handling dynamic asset rendering.</p>
+            </article>
+        </div>
+    </main>
+
+    <footer class="footer" id="contact">
+        <p>&copy; 2026 Thiranex Assignment. Built using CSS Grid & Flexbox.</p>
+    </footer>
+
+    <script>
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const themeText = document.getElementById('theme-text');
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeText.textContent = "Light Mode";
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeText.textContent = "Dark Mode";
+            }    
+        }
+        toggleSwitch.addEventListener('change', switchTheme, false);
+    </script>
+</body>
+</html>
